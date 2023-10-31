@@ -2,15 +2,18 @@ import { useEffect, useState } from 'react';
 import _ from 'lodash';
 
 import './App.css';
-import Card, { CardData } from '../Card/Card';
+import { CardData } from '../Card/Card';
 
 import { CARD_FACE_PATH } from '../../constants';
+import Title from '../Title/Title';
+import TurnLabel from '../TurnLabel/TurnLabel';
+import CardList from '../CardList/CardList';
 
 //TODO: Add logic to calculate the cardback and images randomly
 // * should consider the season for Halloween, Christmas, etc.
 // * should have default random images that can be used for different times of the year
 
-const cardBack = 'src/assets/images/card-back/protruding-squares.svg';
+const cardBack = 'images/card-back/protruding-squares.svg';
 
 const cardImages: CardData[] = [
   {
@@ -101,21 +104,19 @@ function App() {
 
   return (
     <div className="app">
-      <h1>Memory Match</h1>
+      <Title title="Memory Match" />
+
       <button onClick={shuffleCards}>New Game</button>
 
-      <div className="card-grid">
-        {cards.map((card, index) => (
-          <Card
-            key={index}
-            card={card}
-            flipped={card.matched || card === choiceOne || card === choiceTwo}
-            disabled={disabled}
-            handleChoice={handleChoice}
-          />
-        ))}
-      </div>
-      <p>Turns: {turns}</p>
+      <CardList
+        cards={cards}
+        choiceOne={choiceOne}
+        choiceTwo={choiceTwo}
+        disabled={disabled}
+        handleChoice={handleChoice}
+      />
+
+      <TurnLabel numTurns={turns} />
     </div>
   );
 }

@@ -1,3 +1,4 @@
+import React from 'react';
 import './Card.css';
 
 export interface CardData {
@@ -6,19 +7,19 @@ export interface CardData {
   matched: boolean;
 }
 
-type CardProp = {
+export type CardProp = {
   card: CardData;
   disabled: boolean;
   flipped: boolean;
   handleChoice: (card: CardData) => void;
 };
 
-const Card = ({
+const Card: React.FC<CardProp> = ({
   card,
   disabled,
   flipped,
   handleChoice,
-}: CardProp): JSX.Element => {
+}): JSX.Element => {
   const handleClick = () => {
     if (!disabled) {
       handleChoice(card);
